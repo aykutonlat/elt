@@ -1,0 +1,16 @@
+# Node.js Bağımlılıkları
+node_modules/
+
+# Derleme Çıktıları
+dist/
+
+# Çevre Değişkenleri
+.env
+
+# Log Dosyaları
+*.log
+
+# IDE ve Sistem Dosyaları
+.vscode/
+.DS_Store
+Thumbs.db
