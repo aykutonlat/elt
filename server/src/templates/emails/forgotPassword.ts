@@ -86,7 +86,7 @@ export const sendForgotPasswodMail = async ({
         </p>
         <p><strong>Username:</strong> ${username}</p>
         <p class="mail"><strong>Email:</strong> ${email}</p>
-        <a href="${env.frontendUrl}/verify=${type}/${resetToken}" class="button">
+        <a href="${env.frontendUrl}/${type}/${resetToken}" class="button">
             Reset Password
         </a>
         <p class="footer">If you didn't request a password reset, you can ignore this email.</p>

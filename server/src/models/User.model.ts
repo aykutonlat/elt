@@ -2,6 +2,7 @@ import mongoose, { Document, Schema } from "mongoose";
 import {
   UserGender,
   UserLanguages,
+  UserPosition,
   UserRole,
   UserStatus,
 } from "../enum/userRoles.enum";
@@ -16,11 +17,12 @@ export interface IUser extends Document {
   password: string;
   role: UserRole;
   status: UserStatus;
+  position: UserPosition;
   language: UserLanguages;
   gender: UserGender;
   avatar?: string;
   birthdate?: Date;
-  whatsapp?: string;
+  phone?: string;
   bio?: string;
   socialLinks?: {
     linkedin?: string;
@@ -28,6 +30,11 @@ export interface IUser extends Document {
     facebook?: string;
   };
   loginAttempts: number;
+  timeZone: {
+    region: string;
+    offset: string;
+  };
+  profileCompletion: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -61,16 +68,22 @@ const UserSchema: Schema = new Schema(
     password: {
       type: String,
       required: true,
+      select: false,
     },
     role: {
       type: String,
       enum: Object.values(UserRole),
-      default: UserRole.Student,
+      default: UserRole.User,
     },
     status: {
       type: String,
       enum: Object.values(UserStatus),
       default: UserStatus.Active,
+    },
+    position: {
+      type: String,
+      enum: Object.values(UserPosition),
+      default: UserPosition.Other,
     },
     language: {
       type: String,
@@ -88,7 +101,7 @@ const UserSchema: Schema = new Schema(
     birthdate: {
       type: Date,
     },
-    whatsapp: {
+    phone: {
       type: String,
       trim: true,
     },
@@ -102,6 +115,20 @@ const UserSchema: Schema = new Schema(
       facebook: { type: String, trim: true },
     },
     loginAttempts: {
+      type: Number,
+      default: 0,
+    },
+    timeZone: {
+      region: {
+        type: String,
+        default: "UTC",
+      },
+      offset: {
+        type: String,
+        default: "+00:00",
+      },
+    },
+    profileCompletion: {
       type: Number,
       default: 0,
     },
