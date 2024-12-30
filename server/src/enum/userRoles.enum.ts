@@ -1,7 +1,7 @@
 export enum UserRole {
-  Teacher = "teacher",
-  Student = "student",
+  User = "user",
   Admin = "admin",
+  SuperAdmin = "super-admin",
 }
 
 export enum UserStatus {
@@ -21,4 +21,10 @@ export enum UserGender {
 export enum UserLanguages {
   English = "en-US",
   Turkish = "tr-TR",
+}
+
+export enum UserPosition {
+  Teacher = "teacher",
+  Student = "student",
+  Other = "other",
 }
