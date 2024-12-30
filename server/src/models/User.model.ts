@@ -7,6 +7,7 @@ import {
 } from "../enum/userRoles.enum";
 
 export interface IUser extends Document {
+  _id: string;
   firstName: string;
   lastName: string;
   username: string;
@@ -15,6 +16,7 @@ export interface IUser extends Document {
   password: string;
   role: UserRole;
   status: UserStatus;
+  language: UserLanguages;
   gender: UserGender;
   avatar?: string;
   birthdate?: Date;

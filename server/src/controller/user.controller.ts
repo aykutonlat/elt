@@ -4,6 +4,8 @@ import {
   findUserByEmail,
   findUserByUsername,
 } from "../services/userService";
+import { welcomeEmail } from "../templates/emails/welcome";
+import { toUserDTO } from "../dto/User.dto";
 
 /**
  * @param
@@ -27,7 +29,15 @@ export const registerUser = async (
       return;
     }
     const newUser = await createUser({ username, email, password });
-    res.status(201).json({ user: newUser });
+    const sendWelcomeEmail = await welcomeEmail(
+      newUser.username,
+      newUser.email
+    );
+    if (!sendWelcomeEmail) {
+      res.status(500).json({ message: "Error sending welcome email." });
+      return;
+    }
+    res.status(201).json({ user: toUserDTO(newUser) });
   } catch (error) {
     console.error("Error registering user: ", error);
     res
