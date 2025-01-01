@@ -6,6 +6,7 @@ import {
   UserRole,
   UserStatus,
 } from "../enum/userRoles.enum";
+import { MemberShipType } from "../enum/memberShip.enum";
 
 export interface IUser extends Document {
   _id: string;
@@ -68,12 +69,16 @@ const UserSchema: Schema = new Schema(
     password: {
       type: String,
       required: true,
-      select: false,
     },
     role: {
       type: String,
       enum: Object.values(UserRole),
       default: UserRole.User,
+    },
+    memberShipType: {
+      type: [String],
+      enum: Object.values(MemberShipType),
+      default: MemberShipType.Free,
     },
     status: {
       type: String,

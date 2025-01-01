@@ -8,6 +8,7 @@ export const generateAccessToken = (payload: IUser): string => {
     email: payload.email,
     username: payload.username,
     role: payload.role,
+    position: payload.position,
   };
   return jwt.sign(tokenData, env.jwtAccessSecret, {
     expiresIn: env.jwtAccessExp,
