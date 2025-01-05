@@ -1,7 +1,8 @@
+import { Types } from "mongoose";
 import { IUser } from "../models/User.model";
 
 export interface IUserDTO {
-  id: string;
+  id: Types.ObjectId;
   username: string;
   email: string;
   language: string;

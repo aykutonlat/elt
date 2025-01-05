@@ -4,6 +4,7 @@ import env from "../config/env/env";
 import { authRouter } from "../routes/user.routes";
 import { adminLessonRouter } from "../routes/lesson.routes";
 import { isSuperAdmin } from "../middlewares/auth";
+import { ageGroupRouter } from "../routes/ageGroup.routes";
 
 connectDB();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use("/auth", authRouter);
 app.use("/admin", isSuperAdmin);
 app.use("/admin/lesson", adminLessonRouter);
+app.use("/admin/age-group", ageGroupRouter);
 
 const PORT = env.port;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

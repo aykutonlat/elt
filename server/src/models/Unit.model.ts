@@ -2,17 +2,17 @@ import mongoose, { Document, Schema, Types } from "mongoose";
 import { Status } from "../enum/status.enum";
 import { MemberShipType } from "../enum/memberShip.enum";
 
-interface ILessonList extends Document {
+interface IUnit extends Document {
   _id: Types.ObjectId;
   title: string;
   description: string;
-  ageGroup: Types.ObjectId[];
-  memberShipType: MemberShipType[];
   status: Status;
-  createdAt: Date;
+  memberShipType: MemberShipType[];
+  ageGroup: Types.ObjectId;
+  categories: Types.ObjectId[];
 }
 
-const LessonListSchema: Schema = new Schema(
+const UnitSchema: Schema = new Schema(
   {
     title: {
       type: String,
@@ -23,36 +23,38 @@ const LessonListSchema: Schema = new Schema(
       type: String,
       trim: true,
     },
-    ageGroup: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "AgeGroup",
-      },
-    ],
-    memberShipType: {
-      type: [String],
-      enum: Object.values(MemberShipType),
-      default: [MemberShipType.Guest],
-    },
     status: {
       type: String,
       enum: Object.values(Status),
       default: Status.Active,
     },
+    memberShipType: {
+      type: [String],
+      enum: Object.values(MemberShipType),
+      default: [MemberShipType.Guest],
+    },
+    ageGroup: {
+      type: Schema.Types.ObjectId,
+      ref: "AgeGroup",
+      required: true,
+    },
+    categories: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Category",
+      },
+    ],
   },
   {
     timestamps: true,
   }
 );
 
-LessonListSchema.virtual("fullDetails", {
-  ref: "AgeGroup",
-  localField: "ageGroup",
+UnitSchema.virtual("fullDetails", {
+  ref: "Category",
+  localField: "categories",
   foreignField: "_id",
   justOne: false,
 });
 
-export const LessonList = mongoose.model<ILessonList>(
-  "LessonList",
-  LessonListSchema
-);
+export const Unit = mongoose.model<IUnit>("Unit", UnitSchema);
