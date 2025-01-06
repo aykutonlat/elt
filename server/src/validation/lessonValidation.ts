@@ -64,3 +64,35 @@ export const updateLessonListStatusValidationRules = [
       return true;
     }),
 ];
+
+export const searchLessonListValidationRules = [
+  body("status")
+    .optional()
+    .isString()
+    .withMessage("Status must be a string.")
+    .custom((value: string) => {
+      const validStatus = Object.values(Status);
+      if (!validStatus.includes(value as Status)) {
+        throw new Error(`Invalid status: ${value}`);
+      }
+      return true;
+    }),
+  body("memberShipType")
+    .optional()
+    .isString()
+    .withMessage("Membership type must be a string.")
+    .custom((value: string) => {
+      const validMembershipTypes = Object.values(MemberShipType);
+      if (!validMembershipTypes.includes(value as MemberShipType)) {
+        throw new Error(`Invalid membership type: ${value}`);
+      }
+      return true;
+    }),
+  body("title")
+    .optional()
+    .isString()
+    .withMessage("Title must be a string.")
+    .isLength({ min: 3 })
+    .withMessage("Title must be at least 3 characters long.")
+    .trim(),
+];

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   createLessonListValidationRules,
+  searchLessonListValidationRules,
   updateLessonListMembershipValidationRules,
   updateLessonListStatusValidationRules,
   updateLessonListValidationRules,
@@ -11,6 +12,8 @@ import {
   updateLesson,
   updateLessonMembership,
   updateLessonStatus,
+  getAllLessons,
+  getLessonBySearch,
 } from "../controller/adminLesson.controller";
 
 export const adminLessonRouter = Router();
@@ -41,4 +44,13 @@ adminLessonRouter.put(
   updateLessonListStatusValidationRules,
   validate,
   updateLessonStatus
+);
+
+adminLessonRouter.get("/all", getAllLessons);
+
+adminLessonRouter.get(
+  "/search",
+  searchLessonListValidationRules,
+  validate,
+  getLessonBySearch
 );

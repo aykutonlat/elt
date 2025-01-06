@@ -2,7 +2,7 @@ import mongoose, { Document, Schema, Types } from "mongoose";
 import { Status } from "../enum/status.enum";
 import { MemberShipType } from "../enum/memberShip.enum";
 
-interface IAgeGroup extends Document {
+export interface IAgeGroup extends Document {
   _id: Types.ObjectId;
   title: string;
   minAge: number;

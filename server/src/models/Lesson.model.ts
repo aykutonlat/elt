@@ -2,7 +2,7 @@ import mongoose, { Document, Schema, Types } from "mongoose";
 import { Status } from "../enum/status.enum";
 import { MemberShipType } from "../enum/memberShip.enum";
 
-interface ILessonList extends Document {
+export interface ILesson extends Document {
   _id: Types.ObjectId;
   title: string;
   description: string;
@@ -52,7 +52,4 @@ LessonListSchema.virtual("fullDetails", {
   justOne: false,
 });
 
-export const LessonList = mongoose.model<ILessonList>(
-  "LessonList",
-  LessonListSchema
-);
+export const Lesson = mongoose.model<ILesson>("LessonList", LessonListSchema);
